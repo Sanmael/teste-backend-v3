@@ -1,4 +1,4 @@
-﻿namespace TheatricalPlayersRefactoring.ApplicationTests.StatementTests
+﻿namespace TheatricalPlayersRefactoring.ApplicationTests
 {
     public class StatementExamples
     {
