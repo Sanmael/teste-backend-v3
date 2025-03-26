@@ -1,6 +1,6 @@
 using TheatricalPlayersRefactoring.Domain.ValueObjects;
 
-namespace TheatricalPlayersRefactoring.Domain.PlayTypes;
+namespace TheatricalPlayersRefactoring.Domain.Strategies;
 
 public class ComedyBillingStrategy : IBillingStrategy
 {

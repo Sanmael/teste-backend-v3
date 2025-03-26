@@ -7,7 +7,7 @@ public class Invoice
     public Guid Id { get; private set; }
     public CustomerName Customer { get; private set; }
     public string? ExtractPath { get; private set; }
-    private readonly List<Performance> _performances = new();
+    private readonly List<Performance> _performances = [];
     public IReadOnlyCollection<Performance> Performances => _performances.AsReadOnly();
     public Credits TotalCredits { get; private set; }
     public Invoice() { }

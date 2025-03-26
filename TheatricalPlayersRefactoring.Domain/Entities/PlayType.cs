@@ -1,4 +1,4 @@
-namespace TheatricalPlayersRefactoring.Domain.PlayTypes;
+namespace TheatricalPlayersRefactoring.Domain.Entities;
 
 public enum PlayType
 {
