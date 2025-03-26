@@ -4,13 +4,13 @@ namespace TheatricalPlayersRefactoring.Domain.Entities;
 
 public class Invoice
 {
+    protected Invoice() { }
     public Guid Id { get; private set; }
     public CustomerName Customer { get; private set; }
     public string? ExtractPath { get; private set; }
     private readonly List<Performance> _performances = [];
     public IReadOnlyCollection<Performance> Performances => _performances.AsReadOnly();
     public Credits TotalCredits { get; private set; }
-    public Invoice() { }
     public Invoice(CustomerName customer)
     {
         Id = Guid.NewGuid();

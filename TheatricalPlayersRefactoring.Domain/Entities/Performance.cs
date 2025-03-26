@@ -5,7 +5,6 @@ namespace TheatricalPlayersRefactoring.Domain.Entities;
 public class Performance
 {
     protected Performance() { }
-
     public Guid Id { get; private set; }
     public Guid PlayId { get; private set; }
     public Play Play { get; private set; }
