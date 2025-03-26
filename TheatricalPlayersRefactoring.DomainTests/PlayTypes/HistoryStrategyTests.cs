@@ -35,18 +35,15 @@ public class HistoryStrategyTests
     [Fact]
     public void HistoryStrategy_WhenCalculatingCredits_ThenCombinesCredits()
     {
+        var expectedCredits = 10;
+
         // Arrange
         var audience = new Audience(40);
-        var tragedyStrategy = new TragedyBillingStrategy();
-        var comedyStrategy = new ComedyBillingStrategy();
-
-        var expectedCredits = tragedyStrategy.CalculateCredits(audience)
-            .Add(comedyStrategy.CalculateCredits(audience));
 
         // Act
         var credits = _strategy.CalculateCredits(audience);
 
         // Assert
-        Assert.Equal(expectedCredits.Value, credits.Value);
+        Assert.Equal(expectedCredits, credits.Value);
     }
 }

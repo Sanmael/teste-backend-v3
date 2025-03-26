@@ -4,6 +4,7 @@ namespace TheatricalPlayersRefactoring.Domain.Strategies;
 
 public class HistoryBillingStrategy : IBillingStrategy
 {
+    private const int CreditThreshold = 30;
     private readonly IBillingStrategy _tragedyStrategy;
     private readonly IBillingStrategy _comedyStrategy;
 
@@ -22,8 +23,8 @@ public class HistoryBillingStrategy : IBillingStrategy
 
     public Credits CalculateCredits(Audience audience)
     {
-        var tragedyCredits = _tragedyStrategy.CalculateCredits(audience);
-        var comedyCredits = _comedyStrategy.CalculateCredits(audience);
-        return tragedyCredits.Add(comedyCredits);
+        return audience.Value > CreditThreshold
+            ? new Credits(audience.Value - CreditThreshold)
+            : Credits.Zero;
     }
 }

@@ -9,8 +9,8 @@ public class Invoice
     public CustomerName Customer { get; private set; }
     public string? ExtractPath { get; private set; }
     private readonly List<Performance> _performances = [];
-    public IReadOnlyCollection<Performance> Performances => _performances.AsReadOnly();
-    public Credits TotalCredits { get; private set; }
+    public IReadOnlyCollection<Performance> Performances => _performances.AsReadOnly();    
+    public Credits TotalCredits { get; private set; }        
     public Invoice(CustomerName customer)
     {
         Id = Guid.NewGuid();
@@ -22,6 +22,7 @@ public class Invoice
     {
         _performances.Add(performance);
         UpdateCredits();
+        CalculateTotalAmount();
     }
 
     private void UpdateCredits()

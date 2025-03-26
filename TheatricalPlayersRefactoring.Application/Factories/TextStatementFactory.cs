@@ -15,11 +15,11 @@ public class TextStatementFactory : IStatementFactory
 
         foreach (var performance in invoice.Performances)
         {
-            var amount = performance.CalculateAmount();
+            var amount = performance.Amount;
             result.AppendFormat(_cultureInfo,
                 "  {0}: {1:C} ({2} seats)\n",
                 performance.Play.Name,
-                amount.Value,
+                amount,
                 performance.Audience.Value);
         }
 
