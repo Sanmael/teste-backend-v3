@@ -43,6 +43,6 @@ public class PerformanceRequestValidator : AbstractValidator<PerformanceRequest>
 
     private bool BeValidPlayType(string playType)
     {
-        return Enum.TryParse<PlayType>(playType, out _);
+        return Enum.TryParse<PlayType>(playType, true,out _);
     }
 }

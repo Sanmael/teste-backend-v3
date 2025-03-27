@@ -25,13 +25,15 @@ public class GenerateBillCommandHandler : IRequestHandler<GenerateBillCommand, G
     public async Task<GenerateBillResult> Handle(GenerateBillCommand command, CancellationToken cancellationToken)
     {
         var invoice = new Invoice(new CustomerName(command.CustomerName));
-
+        
         foreach (var p in command.Performances)
         {
+            Enum.TryParse<PlayType>(p.PlayType,true, out var playTypeEnum);
+
             var play = new Play(
                 p.PlayName,
                 new Lines(p.Lines),
-                Enum.Parse<PlayType>(p.PlayType)
+                playTypeEnum
             );
 
             var performance = Performance.Create(play, new Audience(p.Audience));
