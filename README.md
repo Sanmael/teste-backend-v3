@@ -111,5 +111,6 @@ Para realizar a entrega do teste, siga as instruções abaixo:
 * Realize o pull request da sua branch nesse repositório.
 4. Envie um vídeo apresentando a aplicação e a entrega como um todo. O vídeo pode ser hospedado como não listado no YouTube ou compartilhado via Google Drive, e o link deve ser incluído no pull request ou no README do projeto.
 
+Link video do Youtube : https://www.youtube.com/watch?v=STbSVy_7mPI
 
 📩 **Boa sorte! Estamos ansiosos para ver seu código e sua apresentação!** 🚀
