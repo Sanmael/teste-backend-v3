@@ -24,10 +24,11 @@ public class BillController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<BillDto>> Get(Guid id)
+    public async Task<ActionResult> Get(Guid id)
     {
         var query = new GetBillQuery(id);
         var result = await _mediator.Send(query);
-        return Ok(result);
+        
+        return File(System.Text.Encoding.UTF8.GetBytes(result.Content), result.ContentType, $"bill.{result.Format.ToLower()}");
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TheatricalPlayersRefactoring.Domain.Repositories;
+using TheatricalPlayersRefactoring.Infrastructure.Messaging;
 using TheatricalPlayersRefactoring.Infrastructure.Persistence;
 using TheatricalPlayersRefactoring.Infrastructure.Repositories;
 
@@ -16,7 +17,8 @@ public static class DependencyInjection
         services.AddDbContext<TheatricalContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
-        services.AddScoped<IInvoiceRepository, InvoiceRepository>();        
+        services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+        services.AddSingleton<IRabbitMQConfiguration, RabbitMQConfiguration>();
 
         return services;
     }

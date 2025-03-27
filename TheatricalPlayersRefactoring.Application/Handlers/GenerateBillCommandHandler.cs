@@ -1,22 +1,25 @@
 using MediatR;
+using RabbitMQ.Client;
+using System.Text.Json;
 using TheatricalPlayersRefactoring.Application.Commands;
-using TheatricalPlayersRefactoring.Application.Factories;
 using TheatricalPlayersRefactoring.Domain.Entities;
 using TheatricalPlayersRefactoring.Domain.Repositories;
 using TheatricalPlayersRefactoring.Domain.ValueObjects;
+using TheatricalPlayersRefactoring.Infrastructure.Messaging;
 
 namespace TheatricalPlayersRefactoring.Application.Handlers;
 
 public class GenerateBillCommandHandler : IRequestHandler<GenerateBillCommand, GenerateBillResult>
 {
-    private readonly IInvoiceRepository _repository;    
-    private readonly IStatementFactoryProvider _statementFactoryProvider;    
+    private readonly IInvoiceRepository _repository;       
+    private readonly IRabbitMQConfiguration _rabbitMQ;
 
     public GenerateBillCommandHandler(
-        IInvoiceRepository repository)
-    {
-        _statementFactoryProvider = new StatementFactoryProvider();
-        _repository = repository;        
+        IInvoiceRepository repository,
+        IRabbitMQConfiguration rabbitMQ)
+    {        
+        _repository = repository;
+        _rabbitMQ = rabbitMQ;
     }
 
     public async Task<GenerateBillResult> Handle(GenerateBillCommand command, CancellationToken cancellationToken)
@@ -38,10 +41,18 @@ public class GenerateBillCommandHandler : IRequestHandler<GenerateBillCommand, G
 
         await _repository.SaveAsync(invoice);
 
-        var factory = _statementFactoryProvider.GetFactory(command.Format);
+        var message = new { InvoiceId = invoice.Id, Format = command.Format };
 
-        var statement = factory.Generate(invoice);
+        var body = JsonSerializer.SerializeToUtf8Bytes(message);
 
-        return new GenerateBillResult(invoice.Id, statement);
+        var channel = _rabbitMQ.GetChannel();
+
+        channel.BasicPublish(
+            exchange: "",
+            routingKey: "invoice_queue",
+            basicProperties: null,
+            body: body);
+
+        return new GenerateBillResult(invoice.Id, "Bill generation queued for processing");
     }
 }

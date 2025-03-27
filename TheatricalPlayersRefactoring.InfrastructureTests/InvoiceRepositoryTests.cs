@@ -81,6 +81,6 @@ public class InvoiceRepositoryTests
 
         // Assert
         var updatedPath = await _repository.GetByIdAsync(invoice.Id);        
-        Assert.Equal(path, updatedPath.ExtractPath);
+        Assert.Equal(path, updatedPath.BillPath);
     }
 }

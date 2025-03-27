@@ -67,6 +67,6 @@ public class InvoiceTests
         invoice.SaveExtract(extractPath);
 
         // Assert
-        Assert.Equal(extractPath, invoice.ExtractPath);
+        Assert.Equal(extractPath, invoice.BillPath);
     }
 }

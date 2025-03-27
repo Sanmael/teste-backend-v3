@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoringKata", "TheatricalPlayersRefactoringKata\TheatricalPlayersRefactoringKata.csproj", "{6D24051E-3E14-4B98-A8B3-DFDA7E4ACD7B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoringKata.Tests", "TheatricalPlayersRefactoringKata.Tests\TheatricalPlayersRefactoringKata.Tests.csproj", "{2AFBF20D-3D97-46EC-B506-8B7C82598951}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoring.Domain", "TheatricalPlayersRefactoring.Domain\TheatricalPlayersRefactoring.Domain.csproj", "{087C80A4-54D2-46BA-93E6-E20EFA7FD1D4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoring.DomainTests", "TheatricalPlayersRefactoring.DomainTests\TheatricalPlayersRefactoring.DomainTests.csproj", "{87CB5A8F-B1DC-4370-A419-E783DC77CB9A}"
@@ -19,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactorin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoring.ApplicationTests", "TheatricalPlayersRefactoring.ApplicationTests\TheatricalPlayersRefactoring.ApplicationTests.csproj", "{9C82B23F-A803-45A3-9006-005F0B837664}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheatricalPlayersRefactoring.Api", "TheatricalPlayersRefactoring.Api\TheatricalPlayersRefactoring.Api.csproj", "{D9C925A1-38E5-4C63-8827-74B5AE60F501}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoring.Api", "TheatricalPlayersRefactoring.Api\TheatricalPlayersRefactoring.Api.csproj", "{D9C925A1-38E5-4C63-8827-74B5AE60F501}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoring.GenerateBillService", "TheatricalPlayersRefactoring.GenerateBillService\TheatricalPlayersRefactoring.GenerateBillService.csproj", "{D57FDE62-E718-44B2-9F45-0C4D81F8CB27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,14 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6D24051E-3E14-4B98-A8B3-DFDA7E4ACD7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D24051E-3E14-4B98-A8B3-DFDA7E4ACD7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D24051E-3E14-4B98-A8B3-DFDA7E4ACD7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D24051E-3E14-4B98-A8B3-DFDA7E4ACD7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2AFBF20D-3D97-46EC-B506-8B7C82598951}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2AFBF20D-3D97-46EC-B506-8B7C82598951}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2AFBF20D-3D97-46EC-B506-8B7C82598951}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2AFBF20D-3D97-46EC-B506-8B7C82598951}.Release|Any CPU.Build.0 = Release|Any CPU
 		{087C80A4-54D2-46BA-93E6-E20EFA7FD1D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{087C80A4-54D2-46BA-93E6-E20EFA7FD1D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{087C80A4-54D2-46BA-93E6-E20EFA7FD1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +53,10 @@ Global
 		{D9C925A1-38E5-4C63-8827-74B5AE60F501}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9C925A1-38E5-4C63-8827-74B5AE60F501}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9C925A1-38E5-4C63-8827-74B5AE60F501}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D57FDE62-E718-44B2-9F45-0C4D81F8CB27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57FDE62-E718-44B2-9F45-0C4D81F8CB27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D57FDE62-E718-44B2-9F45-0C4D81F8CB27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D57FDE62-E718-44B2-9F45-0C4D81F8CB27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

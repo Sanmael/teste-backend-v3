@@ -2,11 +2,13 @@ using FluentAssertions;
 using FluentValidation;
 using MediatR;
 using Moq;
+using RabbitMQ.Client;
 using TheatricalPlayersRefactoring.Application.Commands;
 using TheatricalPlayersRefactoring.Application.Handlers;
 using TheatricalPlayersRefactoring.Application.Validation;
 using TheatricalPlayersRefactoring.Domain.Entities;
 using TheatricalPlayersRefactoring.Domain.Repositories;
+using TheatricalPlayersRefactoring.Infrastructure.Messaging;
 
 namespace TheatricalPlayersRefactoring.ApplicationTests.GenerateBillTests
 {
@@ -17,12 +19,14 @@ namespace TheatricalPlayersRefactoring.ApplicationTests.GenerateBillTests
         private readonly GenerateBillCommandHandler _handler;
         private readonly ValidateGenerateBillCommandBehavior _validateHandler;
         private readonly CancellationToken _cancellationToken;
+        private readonly Mock<IRabbitMQConfiguration> _rabbitMQMock;
 
         public GenerateBillCommandTests()
         {
             _repositoryMock = new Mock<IInvoiceRepository>();
+            _rabbitMQMock = new Mock<IRabbitMQConfiguration>();
             _validator = new GenerateBillCommandValidator();
-            _handler = new GenerateBillCommandHandler(_repositoryMock.Object);
+            _handler = new GenerateBillCommandHandler(_repositoryMock.Object, _rabbitMQMock.Object);
             _validateHandler = new ValidateGenerateBillCommandBehavior(_validator);
         }
 
@@ -141,18 +145,15 @@ namespace TheatricalPlayersRefactoring.ApplicationTests.GenerateBillTests
         }
 
         [Fact]
-        public async Task GenerateBillCommand_WhenInputIsValid_ThenSavesInvoiceAndGenerateTxt()
+        public async Task GenerateBillCommand_WhenInputIsValid_ThenSavesInvoiceAndPublishesMessage()
         {
-            var resultMessage = StatementExamples.ExpectedTxt;
-
             // Arrange
             var command = new GenerateBillCommand(
                 "BigCo",
                 new[]
                 {
-                    new PerformanceRequest("Hamlet", 4024, "Tragedy", 55),
-                    new PerformanceRequest("As You Like", 2670, "Comedy", 35),
-                    new PerformanceRequest("Othello", 3560, "Tragedy", 40)
+                new PerformanceRequest("Hamlet", 4024, "Tragedy", 55),
+                new PerformanceRequest("As You Like", 2670, "Comedy", 35)
                 },
                 StatementFormat.Text
             );
@@ -160,6 +161,10 @@ namespace TheatricalPlayersRefactoring.ApplicationTests.GenerateBillTests
             _repositoryMock.Setup(x => x.SaveAsync(It.IsAny<Invoice>()))
                 .Returns(Task.CompletedTask);
 
+            var mockChannel = new Mock<IModel>();
+            _rabbitMQMock.Setup(x => x.GetChannel())
+                .Returns(mockChannel.Object);
+
             RequestHandlerDelegate<GenerateBillResult> next = new(() => _handler.Handle(command, _cancellationToken));
 
             // Act
@@ -168,45 +173,36 @@ namespace TheatricalPlayersRefactoring.ApplicationTests.GenerateBillTests
             // Assert
             result.Should().NotBeNull();
             result.InvoiceId.Should().NotBe(Guid.Empty);
-            result.Message.Should().Be(resultMessage);
+            result.Message.Should().Be("Bill generation queued for processing");
 
             _repositoryMock.Verify(x => x.SaveAsync(It.IsAny<Invoice>()), Times.Once);
+            _rabbitMQMock.Verify(x => x.GetChannel(), Times.Once);
         }
 
         [Fact]
-        public async Task GenerateBillCommand_WhenInputIsValid_ThenSavesInvoiceAndGenerateXml()
+        public async Task GenerateBillCommand_WhenQueueIsUnavailable_ThenThrowsException()
         {
-            var resultMessage = StatementExamples.ExpectedNewXml;
-
             // Arrange
             var command = new GenerateBillCommand(
                 "BigCo",
-                new[]
-                {
-                    new PerformanceRequest("Hamlet", 4024, "Tragedy", 55),
-                    new PerformanceRequest("As You Like", 2670, "Comedy", 35),
-                    new PerformanceRequest("Othello", 3560, "Tragedy", 40),
-                    new PerformanceRequest("Henry V", 3227, "History", 20),
-                    new PerformanceRequest("King John", 2648, "History", 39),
-                    new PerformanceRequest("Richard III", 3718, "History", 20)
-                },
-                StatementFormat.Xml
+                new[] { new PerformanceRequest("Hamlet", 4024, "Tragedy", 55) },
+                StatementFormat.Text
             );
+
+            RequestHandlerDelegate<GenerateBillResult> next = new(() => _handler.Handle(command, _cancellationToken));
 
             _repositoryMock.Setup(x => x.SaveAsync(It.IsAny<Invoice>()))
                 .Returns(Task.CompletedTask);
 
-            RequestHandlerDelegate<GenerateBillResult> next = new(() => _handler.Handle(command, _cancellationToken));
+            _rabbitMQMock.Setup(x => x.GetChannel())
+                .Throws(new Exception("Queue connection failed"));
 
             // Act
-            var result = await _validateHandler.Handle(command, next, _cancellationToken);
+            var act = () => _validateHandler.Handle(command, next, _cancellationToken);
 
             // Assert
-            result.Should().NotBeNull();
-            result.InvoiceId.Should().NotBe(Guid.Empty);
-            result.Message.Should().Be(resultMessage);
-
-            _repositoryMock.Verify(x => x.SaveAsync(It.IsAny<Invoice>()), Times.Once);
+            await act.Should().ThrowAsync<Exception>()
+                .WithMessage("Queue connection failed");
         }
     }
 }
