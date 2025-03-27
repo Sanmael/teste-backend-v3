@@ -13,11 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactorin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoring.Infrastructure", "TheatricalPlayersRefactoring.Infrastructure\TheatricalPlayersRefactoring.Infrastructure.csproj", "{64AA0E27-6778-4224-9E5D-972B2B090C35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheatricalPlayersRefactoring.InfrastructureTests", "TheatricalPlayersRefactoring.InfrastructureTests\TheatricalPlayersRefactoring.InfrastructureTests.csproj", "{EF646FF5-E2EE-45E8-A9BF-F0FCAE843FBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoring.InfrastructureTests", "TheatricalPlayersRefactoring.InfrastructureTests\TheatricalPlayersRefactoring.InfrastructureTests.csproj", "{EF646FF5-E2EE-45E8-A9BF-F0FCAE843FBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheatricalPlayersRefactoring.Application", "TheatricalPlayersRefactoring.Application\TheatricalPlayersRefactoring.Application.csproj", "{465D2718-7DC9-4222-BBF7-6CE663A04195}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoring.Application", "TheatricalPlayersRefactoring.Application\TheatricalPlayersRefactoring.Application.csproj", "{465D2718-7DC9-4222-BBF7-6CE663A04195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheatricalPlayersRefactoring.ApplicationTests", "TheatricalPlayersRefactoring.ApplicationTests\TheatricalPlayersRefactoring.ApplicationTests.csproj", "{9C82B23F-A803-45A3-9006-005F0B837664}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheatricalPlayersRefactoring.ApplicationTests", "TheatricalPlayersRefactoring.ApplicationTests\TheatricalPlayersRefactoring.ApplicationTests.csproj", "{9C82B23F-A803-45A3-9006-005F0B837664}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheatricalPlayersRefactoring.Api", "TheatricalPlayersRefactoring.Api\TheatricalPlayersRefactoring.Api.csproj", "{D9C925A1-38E5-4C63-8827-74B5AE60F501}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{9C82B23F-A803-45A3-9006-005F0B837664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C82B23F-A803-45A3-9006-005F0B837664}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C82B23F-A803-45A3-9006-005F0B837664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9C925A1-38E5-4C63-8827-74B5AE60F501}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9C925A1-38E5-4C63-8827-74B5AE60F501}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9C925A1-38E5-4C63-8827-74B5AE60F501}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9C925A1-38E5-4C63-8827-74B5AE60F501}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
